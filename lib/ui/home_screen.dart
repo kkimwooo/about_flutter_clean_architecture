@@ -17,18 +17,44 @@ class HomeScreen extends StatelessWidget {
             style: TextStyle(color: Colors.black),
           )),
       body: Column(
-        children: const [
+        children: [
           Padding(
-            padding: EdgeInsets.all(16.0),
+            padding: const EdgeInsets.all(16.0),
             child: TextField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(
+                border: const OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10.0)),
                 ),
-                suffixIcon: Icon(Icons.search),
+                suffixIcon: IconButton(
+                    onPressed: () {
+                      print('Search');
+                    },
+                    icon: const Icon(Icons.search)),
               ),
             ),
           ),
+          Expanded(
+            child: GridView.builder(
+                padding: const EdgeInsets.all(16.0),
+                itemCount: 10,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                ),
+                itemBuilder: (context, index) {
+                  return Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(36)),
+                      image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                              'https://d2u3dcdbebyaiu.cloudfront.net/uploads/atch_img/755/9dbf2a506d32cf82ee9fdd9730f8abbc_res.jpeg')),
+                    ),
+                    // child: Text(index.toString()),
+                  );
+                }),
+          )
         ],
       ),
     );
