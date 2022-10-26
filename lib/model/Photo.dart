@@ -1,5 +1,5 @@
-class AutoGenerate {
-  AutoGenerate({
+class Photo {
+  Photo({
     required this.id,
     required this.pageURL,
     required this.type,
@@ -46,7 +46,7 @@ class AutoGenerate {
   late final String user;
   late final String userImageURL;
 
-  AutoGenerate.fromJson(Map<String, dynamic> json) {
+  Photo.fromJson(Map<String, dynamic> json) {
     id = json['id'];
     pageURL = json['pageURL'];
     type = json['type'];
