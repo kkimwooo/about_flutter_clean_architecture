@@ -4,14 +4,14 @@ import 'package:about_flutter_clean_architecture/ui/widget/photo_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  const HomeScreen({super.key});
+  final PixabayApi api;
+
+  const HomeScreen({super.key, required this.api});
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  //다른 클래스 안에서 인스턴스를 생성하는 것은 안티 패턴
-  final api = PixabayApi();
   final _controller = TextEditingController();
   List<Photo> _photos = [];
 
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 suffixIcon: IconButton(
                     onPressed: () async {
-                      final photos = await api.fetch(_controller.text);
+                      final photos = await widget.api.fetch(_controller.text);
                       setState(() {
                         _photos = photos;
                       });
@@ -65,6 +65,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return PhotoWidget(
                     photo: _photos[index],
+                    api: widget.api,
                   );
                 }),
           )
