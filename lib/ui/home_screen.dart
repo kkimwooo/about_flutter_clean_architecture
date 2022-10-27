@@ -10,6 +10,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  //다른 클래스 안에서 인스턴스를 생성하는 것은 안티 패턴
   final api = PixabayApi();
   final _controller = TextEditingController();
   List<Photo> _photos = [];
