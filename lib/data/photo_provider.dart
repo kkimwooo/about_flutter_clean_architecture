@@ -1,10 +1,18 @@
+import 'dart:async';
+
 import 'package:about_flutter_clean_architecture/data/api.dart';
+import 'package:about_flutter_clean_architecture/model/photo.dart';
 import 'package:flutter/material.dart';
 
 class PhotoProvider extends InheritedWidget {
   final PixabayApi api;
 
-  const PhotoProvider({
+  //InheritedWidget 안에는 불변 객체만 들어올 수 있음..으로 생성하자마자 빈 리스트 할당
+  final _photoStreamController = StreamController<List<Photo>>()..add([]);
+  //Stream 통해 변경 사항 체크
+  Stream<List<Photo>> get photoStream => _photoStreamController.stream;
+
+  PhotoProvider({
     Key? key,
     required this.api,
     required Widget child,
@@ -18,6 +26,11 @@ class PhotoProvider extends InheritedWidget {
     final PhotoProvider? result = context.dependOnInheritedWidgetOfExactType<PhotoProvider>();
     assert(result != null, 'No PixabayApi found in context');
     return result!;
+  }
+
+  Future<void> fetch(String query) async {
+    final result = await api.fetch(query);
+    _photoStreamController.add(result);
   }
 
   //Widget이 변경됐을때 변경 상태 전파, oldWidget에 이전 상태 저장 됨
