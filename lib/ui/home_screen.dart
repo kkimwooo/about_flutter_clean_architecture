@@ -1,12 +1,10 @@
-import 'package:about_flutter_clean_architecture/data/api.dart';
+import 'package:about_flutter_clean_architecture/data/photo_provider.dart';
 import 'package:about_flutter_clean_architecture/model/photo.dart';
 import 'package:about_flutter_clean_architecture/ui/widget/photo_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomeScreen extends StatefulWidget {
-  final PixabayApi api;
-
-  const HomeScreen({super.key, required this.api});
+  const HomeScreen({super.key});
   @override
   State<HomeScreen> createState() => _HomeScreenState();
 }
@@ -23,6 +21,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //context 넣어서 photoprovider 호출
+    final photoProvider = PhotoProvider.of(context);
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 suffixIcon: IconButton(
                     onPressed: () async {
-                      final photos = await widget.api.fetch(_controller.text);
+                      final photos = await photoProvider.api.fetch(_controller.text);
                       setState(() {
                         _photos = photos;
                       });
@@ -65,7 +65,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 itemBuilder: (context, index) {
                   return PhotoWidget(
                     photo: _photos[index],
-                    api: widget.api,
                   );
                 }),
           )

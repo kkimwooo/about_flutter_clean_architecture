@@ -4,11 +4,9 @@ import 'package:flutter/material.dart';
 
 class PhotoWidget extends StatelessWidget {
   final Photo photo;
-  final PixabayApi api;
   const PhotoWidget({
     Key? key,
     required this.photo,
-    required this.api,
   }) : super(key: key);
 
   @override
