@@ -1,10 +1,7 @@
-import 'dart:convert';
-
 import 'package:about_flutter_clean_architecture/data/api.dart';
 import 'package:about_flutter_clean_architecture/model/photo.dart';
 import 'package:about_flutter_clean_architecture/ui/widget/photo_widget.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -13,13 +10,12 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+  final api = PixabayApi();
   final _controller = TextEditingController();
-
   List<Photo> _photos = [];
 
   @override
   void dispose() {
-    // TODO: implement dispose
     _controller.dispose();
     super.dispose();
   }
@@ -47,7 +43,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 suffixIcon: IconButton(
                     onPressed: () async {
-                      final photos = await fetch(_controller.text);
+                      final photos = await api.fetch(_controller.text);
                       setState(() {
                         _photos = photos;
                       });
