@@ -16,6 +16,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   List<Photo> _photos = [];
 
+  //기능으로 분리할 수 있는 코드
   Future<List<Photo>> fetch(String query) async {
     const apiKey = '24999262-d78d2a61a8beebcf2664f2cde';
     final res = await http.get(Uri.parse('https://pixabay.com/api/?key=$apiKey&q=$query&image_type=photo'));
