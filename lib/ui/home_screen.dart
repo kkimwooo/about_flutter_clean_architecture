@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:about_flutter_clean_architecture/data/api.dart';
 import 'package:about_flutter_clean_architecture/model/photo.dart';
 import 'package:about_flutter_clean_architecture/ui/widget/photo_widget.dart';
 import 'package:flutter/material.dart';
@@ -15,15 +16,6 @@ class _HomeScreenState extends State<HomeScreen> {
   final _controller = TextEditingController();
 
   List<Photo> _photos = [];
-
-  //기능으로 분리할 수 있는 코드
-  Future<List<Photo>> fetch(String query) async {
-    const apiKey = '24999262-d78d2a61a8beebcf2664f2cde';
-    final res = await http.get(Uri.parse('https://pixabay.com/api/?key=$apiKey&q=$query&image_type=photo'));
-    Map<String, dynamic> jsonRes = jsonDecode(res.body);
-    Iterable hits = jsonRes['hits']; //Iterable로 받아서 반복 처리 용이
-    return hits.map((e) => Photo.fromJson(e)).toList();
-  }
 
   @override
   void dispose() {
