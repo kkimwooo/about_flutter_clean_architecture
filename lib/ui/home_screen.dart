@@ -11,6 +11,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   final _controller = TextEditingController();
+
+  //데이터를 담는 부분도 분리 필요
   List<Photo> _photos = [];
 
   @override
