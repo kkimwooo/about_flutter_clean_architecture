@@ -1,4 +1,5 @@
-import 'package:about_flutter_clean_architecture/data/api.dart';
+import 'package:about_flutter_clean_architecture/data/photo_api_repository.dart';
+import 'package:about_flutter_clean_architecture/data/pixabay_api.dart';
 import 'package:about_flutter_clean_architecture/data/photo_provider.dart';
 import 'package:about_flutter_clean_architecture/ui/home_screen.dart';
 import 'package:about_flutter_clean_architecture/ui/home_view_model.dart';
@@ -22,9 +23,7 @@ class MyApp extends StatelessWidget {
       //Inherited Widget 사용 위해 최상단을 Inherited Widget으로 감싸줌
       //PhotoProvider가 HomeScreen으로 주입
       home: PhotoProvider(
-        viewModel: HomeViewModel(
-          PixabayApi(),
-        ),
+        viewModel: HomeViewModel(PixabayApi()),
         child: const HomeScreen(),
       ),
     );
