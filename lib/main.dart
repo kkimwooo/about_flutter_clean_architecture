@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      //Provider 사용
-      home: Provider(
+      //ChangeNotifierProvider 사용하여 변화 감지
+      home: ChangeNotifierProvider(
         create: (_) => HomeViewModel(PixabayApi()),
         child: const HomeScreen(),
       ),

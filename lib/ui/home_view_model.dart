@@ -1,19 +1,25 @@
 import 'dart:async';
+import 'dart:collection';
 import 'package:about_flutter_clean_architecture/data/photo_api_repository.dart';
 import 'package:about_flutter_clean_architecture/model/photo.dart';
+import 'package:flutter/cupertino.dart';
 
-class HomeViewModel {
+class HomeViewModel with ChangeNotifier {
   final PhotoApiRepository repository;
 
-  //InheritedWidget 안에는 불변 객체만 들어올 수 있음..으로 생성하자마자 빈 리스트 할당
-  final _photoStreamController = StreamController<List<Photo>>()..add([]);
-  //Stream 통해 변경 사항 체크
-  Stream<List<Photo>> get photoStream => _photoStreamController.stream;
+  List<Photo> _photos = [];
+
+  //외부에서 ViewModel을 수정하는 것을 방지
+  //수정이 필요하면 이 클래스 안에서 수정해라
+  //UnmodifiableListView 이걸 이용하면 값을 가져오는 것만 됨 .clear .add 등 안됨
+  UnmodifiableListView<Photo> get photos => UnmodifiableListView<Photo>(_photos);
 
   HomeViewModel(this.repository);
 
   Future<void> fetch(String query) async {
     final result = await repository.fetch(query);
-    _photoStreamController.add(result);
+    _photos = result;
+    //notifyListener : 변화가 있으면 새로 그려줌
+    notifyListeners();
   }
 }

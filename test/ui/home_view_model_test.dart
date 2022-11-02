@@ -7,16 +7,12 @@ void main() {
   test('스트림 동작 테스트 ', () async {
     final viewModel = HomeViewModel(FakePhotoApiRepository());
     await viewModel.fetch('apple');
-    await viewModel.fetch('apple');
+
     final List<Photo> result = fakeJson.map((e) => Photo.fromJson(e)).toList();
 
     expect(
-      viewModel.photoStream,
-      emitsInOrder([
-        equals([]), // photoStream 초기값으로 빈 리스트 할당하기 때문
-        equals(result),
-        equals(result),
-      ]),
+      viewModel.photos,
+      result,
     );
   });
 }
