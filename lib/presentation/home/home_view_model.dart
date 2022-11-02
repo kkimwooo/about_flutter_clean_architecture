@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:collection';
-import 'package:about_flutter_clean_architecture/data/photo_api_repository.dart';
-import 'package:about_flutter_clean_architecture/model/photo.dart';
+import 'package:about_flutter_clean_architecture/domain/repository/photo_api_repository.dart';
+import 'package:about_flutter_clean_architecture/domain/model/photo.dart';
 import 'package:flutter/cupertino.dart';
 
 class HomeViewModel with ChangeNotifier {

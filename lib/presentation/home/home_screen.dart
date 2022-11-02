@@ -1,6 +1,5 @@
-import 'package:about_flutter_clean_architecture/model/photo.dart';
-import 'package:about_flutter_clean_architecture/ui/home_view_model.dart';
-import 'package:about_flutter_clean_architecture/ui/widget/photo_widget.dart';
+import 'package:about_flutter_clean_architecture/presentation/home/home_view_model.dart';
+import 'package:about_flutter_clean_architecture/presentation/home/widget/photo_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 

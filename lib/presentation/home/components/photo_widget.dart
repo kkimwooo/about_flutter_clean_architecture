@@ -1,4 +1,4 @@
-import 'package:about_flutter_clean_architecture/model/photo.dart';
+import 'package:about_flutter_clean_architecture/domain/model/photo.dart';
 import 'package:flutter/material.dart';
 
 class PhotoWidget extends StatelessWidget {
