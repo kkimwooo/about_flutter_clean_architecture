@@ -21,6 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    //Provider of 이용하는 방법
+    //final viewModel = Provider.of<HomeViewModel>(context);
+
+    //context.wath 사용 방법
+    //HomeViewModel에 변동이 있는지 체크하는 것
+    //context.watch, context.read,
+    final viewModel = context.watch<HomeViewModel>();
+
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
@@ -42,33 +50,27 @@ class _HomeScreenState extends State<HomeScreen> {
                 ),
                 suffixIcon: IconButton(
                     onPressed: () async {
-                      ///context.read는 최초 빌드시 한번만 읽어 오는 것 GetX의 once랑 같은 기능인듯?
-                      context.read<HomeViewModel>().fetch(_controller.text);
+                      viewModel.fetch(_controller.text);
                     },
                     icon: const Icon(Icons.search)),
               ),
             ),
           ),
-
-          ///Consumer 로 HomeViewModel의 변화가 있을때 이 부분만 그려주도록 함
-          Consumer<HomeViewModel>(
-            builder: ((context, viewModel, child) {
-              return Expanded(
-                child: GridView.builder(
-                    padding: const EdgeInsets.all(16.0),
-                    itemCount: viewModel.photos.length,
-                    gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 16,
-                      mainAxisSpacing: 16,
-                    ),
-                    itemBuilder: (context, index) {
-                      return PhotoWidget(
-                        photo: viewModel.photos[index],
-                      );
-                    }),
-              );
-            }),
+          //이전에 stream을 통해 변화를 감지하던 부분을 changeNotifier사용으로 대체함
+          Expanded(
+            child: GridView.builder(
+                padding: const EdgeInsets.all(16.0),
+                itemCount: viewModel.photos.length,
+                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 2,
+                  crossAxisSpacing: 16,
+                  mainAxisSpacing: 16,
+                ),
+                itemBuilder: (context, index) {
+                  return PhotoWidget(
+                    photo: viewModel.photos[index],
+                  );
+                }),
           )
         ],
       ),
