@@ -1,7 +1,8 @@
-import 'package:about_flutter_clean_architecture/data/photo_provider.dart';
 import 'package:about_flutter_clean_architecture/model/photo.dart';
+import 'package:about_flutter_clean_architecture/ui/home_view_model.dart';
 import 'package:about_flutter_clean_architecture/ui/widget/photo_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,8 +21,14 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //context 넣어서 photoprovider 호출
-    final viewModel = PhotoProvider.of(context).viewModel;
+    //Provider of 이용하는 방법
+    //final viewModel = Provider.of<HomeViewModel>(context);
+
+    //context.wath 사용 방법
+    //HomeViewModel에 변동이 있는지 체크하는 것
+    //context.watch, context.read,
+    final viewModel = context.watch<HomeViewModel>();
+
     return Scaffold(
       appBar: AppBar(
           centerTitle: true,
