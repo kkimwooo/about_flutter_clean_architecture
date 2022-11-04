@@ -1,14 +1,13 @@
-import 'package:about_flutter_clean_architecture/data/data_source/pixabay_api.dart';
-import 'package:about_flutter_clean_architecture/data/repository/photo_api_repository_impl.dart';
-import 'package:about_flutter_clean_architecture/domain/use_case/get_photos_use_case.dart';
+import 'package:about_flutter_clean_architecture/di/provider_setup.dart';
 import 'package:about_flutter_clean_architecture/presentation/home/home_screen.dart';
-import 'package:about_flutter_clean_architecture/presentation/home/home_view_model.dart';
-import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(MultiProvider(
+    providers: globalProviders,
+    child: const MyApp(),
+  ));
 }
 
 class MyApp extends StatelessWidget {
@@ -23,18 +22,7 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
       ),
       //ChangeNotifierProvider 사용하여 변화 감지
-      home: ChangeNotifierProvider(
-        create: (_) => HomeViewModel(
-          GetPhotosUseCase(
-            PhotoApiRepositoryImpl(
-              PixabayApi(
-                http.Client(),
-              ),
-            ),
-          ),
-        ),
-        child: const HomeScreen(),
-      ),
+      home: const HomeScreen(),
     );
   }
 }
