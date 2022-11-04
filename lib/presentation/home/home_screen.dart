@@ -48,6 +48,7 @@ class _HomeScreenState extends State<HomeScreen> {
     //HomeViewModel에 변동이 있는지 체크하는 것
     //context.watch, context.read,
     final viewModel = context.watch<HomeViewModel>();
+    final state = viewModel.state;
 
     return Scaffold(
       appBar: AppBar(
@@ -76,14 +77,14 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          viewModel.isLoading
+          state.isLoading
               ? const CircularProgressIndicator()
               :
               //이전에 stream을 통해 변화를 감지하던 부분을 changeNotifier사용으로 대체함
               Expanded(
                   child: GridView.builder(
                       padding: const EdgeInsets.all(16.0),
-                      itemCount: viewModel.photos.length,
+                      itemCount: state.photos.length,
                       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                         crossAxisCount: 2,
                         crossAxisSpacing: 16,
@@ -91,7 +92,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                       itemBuilder: (context, index) {
                         return PhotoWidget(
-                          photo: viewModel.photos[index],
+                          photo: state.photos[index],
                         );
                       }),
                 )
