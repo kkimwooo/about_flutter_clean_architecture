@@ -76,22 +76,25 @@ class _HomeScreenState extends State<HomeScreen> {
               ),
             ),
           ),
-          //이전에 stream을 통해 변화를 감지하던 부분을 changeNotifier사용으로 대체함
-          Expanded(
-            child: GridView.builder(
-                padding: const EdgeInsets.all(16.0),
-                itemCount: viewModel.photos.length,
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  crossAxisSpacing: 16,
-                  mainAxisSpacing: 16,
-                ),
-                itemBuilder: (context, index) {
-                  return PhotoWidget(
-                    photo: viewModel.photos[index],
-                  );
-                }),
-          )
+          viewModel.isLoading
+              ? const CircularProgressIndicator()
+              :
+              //이전에 stream을 통해 변화를 감지하던 부분을 changeNotifier사용으로 대체함
+              Expanded(
+                  child: GridView.builder(
+                      padding: const EdgeInsets.all(16.0),
+                      itemCount: viewModel.photos.length,
+                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        crossAxisSpacing: 16,
+                        mainAxisSpacing: 16,
+                      ),
+                      itemBuilder: (context, index) {
+                        return PhotoWidget(
+                          photo: viewModel.photos[index],
+                        );
+                      }),
+                )
         ],
       ),
     );
