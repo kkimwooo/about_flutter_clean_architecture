@@ -20,14 +20,14 @@ class HomeViewModel with ChangeNotifier {
   HomeViewModel(this.repository);
 
   Future<void> fetch(String query) async {
-    _state = state.copy(isLoading: true);
+    _state = state.copyWith(isLoading: true);
     notifyListeners(); // isLoading 값 변화 상태를 전파하기 위함
 
     final Result<List<Photo>> result = await repository.fetch(query);
 
     result.when(
       success: (photos) {
-        _state = state.copy(photos: photos);
+        _state = state.copyWith(photos: photos);
         //notifyListener : 변화가 있으면 새로 그려줌
         notifyListeners();
       },
@@ -35,7 +35,7 @@ class HomeViewModel with ChangeNotifier {
         _eventController.add(HomeUiEvent.showSnackBar(message));
       },
     );
-    _state = state.copy(isLoading: false);
+    _state = state.copyWith(isLoading: false);
     notifyListeners();
   }
 }
